@@ -107,7 +107,7 @@
     <!-- Меню -->
     <ul class="menu">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Donate</a></li>
+        <li><a href="#">Donae</a></li>
         <li><a href="#">History</a></li>
         <li><a href="#">Contacts</a></li>
     </ul>
@@ -148,3 +148,19 @@
     </script>
 </body>
 </html>
+
+// Функция для вибрации
+function vibrate() {
+    if ("vibrate" in navigator) {
+        navigator.vibrate(100); // Длительность вибрации в миллисекундах
+    } else if ("mozVibrate" in navigator) {
+        navigator.mozVibrate(100);
+    }
+}
+
+// Привязка функции к кнопке
+const button = document.getElementById('myButton'); // Замените 'myButton' на id вашей кнопки
+button.addEventListener('click', function() {
+    vibrate();
+    // Дополнительный код, который должен выполняться при нажатии на кнопку
+});
