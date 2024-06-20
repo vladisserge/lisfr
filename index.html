@@ -3,47 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Адаптивная плавная заставка с PNG изображением</title>
+    <title>Animated Landing Page</title>
     <style>
+        /* Общие стили для обеих страниц */
         body {
             margin: 0;
-            height: 100vh;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            height: 100vh; /* Добавляем высоту, чтобы заставка занимала весь экран */
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: black;
             overflow: hidden;
         }
-        #image {
-            opacity: 0;
-            transition: opacity 1.5s;
-            width: 80%; /* Пример использования процентов для адаптивности */
+
+        /* Стили для заставки с изображением */
+        .splash {
+            position: absolute; /* Абсолютное позиционирование для заставки */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Начальная прозрачность для анимации появления */
+            transition: opacity 1.5s ease-in-out; /* Анимация появления заставки */
+            z-index: 2; /* Позиционируем поверх контента */
+        }
+        .splash img {
+            width: 80%; /* Ширина изображения */
             max-width: 100%; /* Максимальная ширина изображения не больше 100% ширины экрана */
-            height: auto;
+            height: auto; /* Автоматическая высота */
         }
         @media (max-width: 768px) {
-            #image {
+            .splash img {
                 width: 100%; /* На маленьких экранах изображение занимает всю ширину */
             }
+        }
+
+        /* Стили для меню */
+        .menu {
+            list-style-type: none;
+            padding: 10px 0;
+            margin: 0;
+            overflow: hidden;
+            background-color: #444;
+            text-align: center;
+            border-bottom-left-radius: 20px; /* Скругление левого нижнего угла */
+            border-bottom-right-radius: 20px; /* Скругление правого нижнего угла */
+            position: fixed; /* Фиксированное положение для меню */
+            width: 100%; /* Ширина меню по всей ширине экрана */
+            top: 0; /* Располагаем меню вверху */
+            z-index: 1000; /* Очень высокий индекс, чтобы оно было поверх всего */
+            opacity: 0; /* Начальная прозрачность для анимации появления */
+            transition: opacity 1s ease-in-out; /* Анимация появления меню */
+        }
+        .menu.show {
+            opacity: 1; /* Показываем меню после анимации */
+        }
+        .menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+        .menu li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: inline-block;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+        }
+        .menu li a:hover {
+            background-color: #666;
+        }
+
+        /* Стили для содержимого */
+        .content {
+            padding: 20px;
+            text-align: center;
+            position: absolute; /* Абсолютное позиционирование для контента */
+            top: 50%; /* Располагаем в середине экрана по вертикали */
+            left: 50%; /* Располагаем в середине экрана по горизонтали */
+            transform: translate(-50%, -50%); /* Центрируем контент по обоим осям */
+            z-index: 1; /* Позиционируем контент под меню */
+            opacity: 0; /* Начальная прозрачность для анимации появления */
+            transition: opacity 1s ease-in-out; /* Анимация появления контента */
+        }
+        .content.show {
+            opacity: 1; /* Показываем контент после анимации */
         }
     </style>
 </head>
 <body>
-    <img id="image" src="lisfr_logo.png" alt="PNG изображение">
+    <!-- Заставка с изображением -->
+    <div class="splash">
+        <img src="lisfr_logo.png" alt="PNG изображение">
+    </div>
+
+    <!-- Меню -->
+    <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Changelog</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <!-- Содержимое страницы -->
+    <div class="content">
+        <h2>Welcome to the Website!</h2>
+        <p>Here could be some introduction or description of your website.</p>
+    </div>
+
+    <!-- Скрипт для анимации заставки и появления контента -->
     <script>
         window.onload = function() {
-            const img = document.getElementById('image');
-            setTimeout(() => {
-                img.style.opacity = 1;
-            }, 500); // Задержка перед началом появления
+            const splash = document.querySelector('.splash');
+            const img = document.querySelector('.splash img');
+            const menu = document.querySelector('.menu');
+            const content = document.querySelector('.content');
 
+            // Показываем заставку
             setTimeout(() => {
-                img.style.opacity = 0;
+                splash.style.opacity = 1;
+            }, 500); // Задержка перед началом появления заставки
+
+            // Показываем меню и содержимое страницы после исчезновения заставки
+            setTimeout(() => {
+                splash.style.opacity = 0;
                 setTimeout(() => {
-                    // Переход на главную страницу после завершения анимации
-                    window.location.href = 'index.html'; // Замените 'index.html' на актуальный путь к вашей главной странице
-                }, 1000); // Дополнительная задержка перед переходом
-            }, 3500); // Время исчезновения (3 секунды + 1.5 секунды на появление)
+                    menu.classList.add('show'); // Показываем меню
+                    content.classList.add('show'); // Показываем содержимое
+                }, 1000); // Задержка перед показом меню и содержимого
+            }, 3500); // Время исчезновения заставки (3 секунды + 1.5 секунды на появление)
+
+            // Скрываем заставку окончательно
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 5000); // Время после которого скрываем заставку
         }
     </script>
 </body>
