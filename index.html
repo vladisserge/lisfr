@@ -100,10 +100,13 @@
         }
 
         /* Стили для переключателя языка */
-        .language-switcher {
+        .language-switcher-container {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1001; /* Выше меню */
+        }
+        .language-switcher {
             display: flex;
             align-items: center;
             background-color: #444;
@@ -129,7 +132,7 @@
         <img src="lisfr_logo.png" alt="PNG изображение">
     </div>
 
-    <!-- Контейнер для меню и переключателя языка -->
+    <!-- Контейнер для меню -->
     <div class="menu-container">
         <!-- Меню -->
         <ul class="menu">
@@ -138,8 +141,10 @@
             <li><a href="#" data-translate="menu.history">History</a></li>
             <li><a href="#" data-translate="menu.contacts">Contacts</a></li>
         </ul>
+    </div>
 
-        <!-- Переключатель языка -->
+    <!-- Контейнер для переключателя языка -->
+    <div class="language-switcher-container">
         <div class="language-switcher">
             <span>LAN</span>
             <select id="language-selector">
