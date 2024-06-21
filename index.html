@@ -46,6 +46,17 @@
         }
 
         /* Стили для меню */
+        .menu-container {
+            position: fixed; /* Фиксированное положение для контейнера меню */
+            top: 0;
+            width: 100%; /* Ширина контейнера по всей ширине экрана */
+            z-index: 1000; /* Очень высокий индекс, чтобы контейнер был поверх всего */
+            opacity: 0; /* Начальная прозрачность для анимации появления */
+            transition: opacity 1s ease-in-out; /* Анимация появления контейнера */
+        }
+        .menu-container.show {
+            opacity: 1; /* Показываем контейнер после анимации */
+        }
         .menu {
             list-style-type: none;
             padding: 10px 0;
@@ -55,15 +66,6 @@
             text-align: center;
             border-bottom-left-radius: 20px; /* Скругление левого нижнего угла */
             border-bottom-right-radius: 20px; /* Скругление правого нижнего угла */
-            position: fixed; /* Фиксированное положение для меню */
-            width: 100%; /* Ширина меню по всей ширине экрана */
-            top: 0; /* Располагаем меню вверху */
-            z-index: 1000; /* Очень высокий индекс, чтобы оно было поверх всего */
-            opacity: 0; /* Начальная прозрачность для анимации появления */
-            transition: opacity 1s ease-in-out; /* Анимация появления меню */
-        }
-        .menu.show {
-            opacity: 1; /* Показываем меню после анимации */
         }
         .menu li {
             display: inline;
@@ -96,6 +98,29 @@
         .content.show {
             opacity: 1; /* Показываем контент после анимации */
         }
+
+        /* Стили для переключателя языка */
+        .language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            background-color: #444;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: #fff;
+        }
+        .language-switcher select {
+            background-color: #444;
+            color: #fff;
+            border: none;
+            margin-left: 5px;
+            padding: 5px;
+            border-radius: 15px;
+            outline: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -104,20 +129,25 @@
         <img src="lisfr_logo.png" alt="PNG изображение">
     </div>
 
-    <!-- Меню -->
-    <ul class="menu">
-        <li><a href="#" data-translate="menu.home">Home</a></li>
-        <li><a href="#" data-translate="menu.donate">Donate</a></li>
-        <li><a href="#" data-translate="menu.history">History</a></li>
-        <li><a href="#" data-translate="menu.contacts">Contacts</a></li>
-        <li style="position: absolute; top: 10px; right: 10px;">
+    <!-- Контейнер для меню и переключателя языка -->
+    <div class="menu-container">
+        <!-- Меню -->
+        <ul class="menu">
+            <li><a href="#" data-translate="menu.home">Home</a></li>
+            <li><a href="#" data-translate="menu.donate">Donate</a></li>
+            <li><a href="#" data-translate="menu.history">History</a></li>
+            <li><a href="#" data-translate="menu.contacts">Contacts</a></li>
+        </ul>
+
+        <!-- Переключатель языка -->
+        <div class="language-switcher">
             <span>LAN</span>
             <select id="language-selector">
                 <option value="en">EN</option>
                 <option value="ru">RU</option>
             </select>
-        </li>
-    </ul>
+        </div>
+    </div>
 
     <!-- Содержимое страницы -->
     <div class="content">
@@ -129,8 +159,7 @@
     <script>
         window.onload = function() {
             const splash = document.querySelector('.splash');
-            const img = document.querySelector('.splash img');
-            const menu = document.querySelector('.menu');
+            const menuContainer = document.querySelector('.menu-container');
             const content = document.querySelector('.content');
 
             // Показываем заставку
@@ -142,9 +171,9 @@
             setTimeout(() => {
                 splash.style.opacity = 0;
                 setTimeout(() => {
-                    menu.classList.add('show'); // Показываем меню
+                    menuContainer.classList.add('show'); // Показываем контейнер меню
                     content.classList.add('show'); // Показываем содержимое
-                }, 1000); // Задержка перед показом меню и содержимого
+                }, 1000); // Задержка перед показом контейнера меню и содержимого
             }, 3500); // Время исчезновения заставки (3 секунды + 1.5 секунды на появление)
 
             // Скрываем заставку окончательно
@@ -159,7 +188,7 @@
         });
 
         function loadLanguage(lang) {
-            fetch(`${lang}.json`)
+            fetch(`translations/${lang}.json`)
                 .then(response => response.json())
                 .then(translations => {
                     applyTranslations(translations);
@@ -180,7 +209,6 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
-            document.getElementById('language-selector').value = savedLanguage;
             loadLanguage(savedLanguage);
         });
     </script>
