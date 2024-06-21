@@ -1,1 +1,10 @@
-
+{
+  "welcome": "Welcome to the Website!",
+  "introduction": "Here could be some introduction or description of your website.",
+  "menu": {
+    "home": "Home",
+    "donate": "Donate",
+    "history": "History",
+    "contacts": "Contacts"
+  }
+}
