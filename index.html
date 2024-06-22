@@ -45,6 +45,10 @@
             width: 80%; /* Ширина изображения */
             max-width: 100%; /* Максимальная ширина изображения не больше 100% ширины экрана */
             height: auto; /* Автоматическая высота */
+            pointer-events: none; /* Запрет на взаимодействие с изображением через события мыши */
+            user-select: none; /* Запрет на выделение текста и изображений */
+            -webkit-user-drag: none; /* Запрет на перетаскивание изображений (для WebKit) */
+            -webkit-touch-callout: none; /* Запрет на отображение контекстного меню при удержании пальца (для iOS) */
         }
         @media (max-width: 768px) {
             .splash img {
@@ -113,10 +117,10 @@
             right: 0px;
             z-index: 1001; /* Выше меню */
             opacity: 0; /* Начальная прозрачность для анимации появления */
-            transition: opacity 1s ease-in-out; /* Анимация появления контейнера */
+            transition: opacity 1s ease-in-out; /* Анимация появления переключателя языка */
         }
         .language-switcher-container.show {
-            opacity: 1; /* Плавно делаем видимым контейнер */
+            opacity: 1; /* Показываем переключатель языка после анимации */
         }
         .language-switcher {
             display: flex;
