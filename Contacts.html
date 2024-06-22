@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacts</title>
+<style>
+  body {
+    background-color: black; /* черный фон */
+    color: white; /* белый текст */
+    font-family: Arial, sans-serif; /* выбор шрифта */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* чтобы содержимое было по центру страницы */
+    margin: 0;
+    padding: 20px;
+  }
+
+  .content {
+    display: flex;
+    max-width: 900px; /* максимальная ширина контейнера */
+  }
+
+  .content img {
+    max-width: 40%; /* ширина изображения */
+    height: auto; /* сохранение пропорций */
+    margin-right: 20px; /* отступ справа */
+  }
+
+  .text-container {
+    flex: 1; /* текст занимает всё доступное пространство справа от изображения */
+  }
+
+  .text-container h2 {
+    text-align: left; /* выравнивание заголовка по левому краю */
+    margin-bottom: 10px; /* отступ между заголовком и текстом */
+  }
+
+  .text-container p {
+    text-align: justify; /* выравнивание текста по ширине */
+    line-height: 1.6; /* межстрочный интервал */
+  }
+</style>
+</head>
+<body>
+
+<div class="content">
+  <img src="photo_of_vladislav_sergeev.jpg" alt="Фотография">
+  <div class="text-container">
+    <h2>Vladislav Sergeev</h2>
+    <p>
+      Creator of the project, 3D-modeler, programmer, artist and more.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
