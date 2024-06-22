@@ -135,7 +135,7 @@
 </head>
 <body>
     <!-- Видео по центру -->
-    <video id="background-video" src="trailer_lis_bts.mp4" loop muted></video>
+    <video id="background-video" src="your-video-file.mp4" loop muted playsinline></video>
 
     <!-- Заставка с изображением -->
     <div class="splash">
@@ -200,6 +200,14 @@
             }, 5000); // Время после которого скрываем заставку
         }
 
+        // Добавляем слушатель для взаимодействия с пользователем на мобильных устройствах
+        document.addEventListener('touchstart', function() {
+            const video = document.getElementById('background-video');
+            if (video.paused) {
+                video.play();
+            }
+        });
+
         document.getElementById('language-selector').addEventListener('change', function(event) {
             const selectedLanguage = event.target.value;
             loadLanguage(selectedLanguage);
@@ -226,7 +234,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'eng';
             loadLanguage(savedLanguage);
         });
     </script>
