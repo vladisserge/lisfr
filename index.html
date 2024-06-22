@@ -19,6 +19,13 @@
             overflow: hidden;
         }
 
+        /* Стили для видео */
+        video {
+            max-width: 100%;
+            max-height: 100%;
+            display: none; /* Скрываем видео до окончания заставки */
+        }
+
         /* Стили для заставки с изображением */
         .splash {
             position: absolute; /* Абсолютное позиционирование для заставки */
@@ -127,6 +134,9 @@
     </style>
 </head>
 <body>
+    <!-- Видео по центру -->
+    <video id="background-video" src="trailer_lis_bts.mp4" loop muted></video>
+
     <!-- Заставка с изображением -->
     <div class="splash">
         <img src="lisfr_logo.png" alt="PNG изображение">
@@ -166,6 +176,7 @@
             const splash = document.querySelector('.splash');
             const menuContainer = document.querySelector('.menu-container');
             const content = document.querySelector('.content');
+            const video = document.getElementById('background-video');
 
             // Показываем заставку
             setTimeout(() => {
@@ -178,6 +189,8 @@
                 setTimeout(() => {
                     menuContainer.classList.add('show'); // Показываем контейнер меню
                     content.classList.add('show'); // Показываем содержимое
+                    video.style.display = 'block'; // Показываем видео
+                    video.play(); // Запускаем видео
                 }, 1000); // Задержка перед показом контейнера меню и содержимого
             }, 3500); // Время исчезновения заставки (3 секунды + 1.5 секунды на появление)
 
