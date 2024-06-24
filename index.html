@@ -144,8 +144,9 @@
         #background-video {
             width: 75vw; /* 75% от ширины экрана */
             height: auto; /* Сохраняем пропорции */
-            display: none; /* Начально скрываем видео */
+            opacity: 0; /* Начальная прозрачность для анимации появления */
             border-radius: 20px; /* Скругленные углы */
+            transition: opacity 1s ease-in-out; /* Анимация появления видео */
         }
 
         /* Стили для контента с прокруткой */
@@ -225,7 +226,7 @@
                 setTimeout(() => {
                     menuContainer.classList.add('show'); // Показываем контейнер меню
                     content.classList.add('show'); // Показываем содержимое
-                    video.style.display = 'block'; // Показываем видео
+                    video.style.opacity = 1; // Показываем видео
                     video.play(); // Запускаем видео
                     languageSwitcherContainer.classList.add('show'); // Показываем переключатель языка
                 }, 1000); // Задержка перед показом контейнера меню и содержимого
@@ -234,7 +235,6 @@
             // Скрываем заставку окончательно
             setTimeout(() => {
                 splash.style.display = 'none';
-                video.style.display = 'block'; // Показываем видео после окончания заставки
             }, 5000); // Время после которого скрываем заставку
         }
 
