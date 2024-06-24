@@ -105,9 +105,9 @@
 
         /* Стили для переключателя языка */
         .language-switcher-container {
-            position: absolute;
+            position: fixed;
             top: 65px;
-            right: 0px;
+            right: 10px;
             z-index: 1001;
             opacity: 0;
             transition: opacity 1s ease-in-out;
@@ -148,45 +148,61 @@
             border-radius: 20px; /* Скругленные углы */
         }
 
+        /* Стили для контента с прокруткой */
+        .scroll-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #000;
+        }
+        .scroll-content {
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
-    <!-- Заставка с изображением -->
-    <div class="splash">
-        <img src="lisfr_logo.png" alt="PNG изображение">
-    </div>
-
-    <!-- Контейнер для меню -->
-    <div class="menu-container">
-        <!-- Меню -->
-        <ul class="menu">
-            <li><a href="#" data-translate="menu.home">Home</a></li>
-            <li><a href="#" data-translate="menu.donate">Donate</a></li>
-            <li><a href="#" data-translate="menu.history">History</a></li>
-            <li><a href="Contacts.html" data-translate="menu.contacts">Contacts</a></li>
-        </ul>
-    </div>
-
-    <!-- Контейнер для видео -->
-    <div class="video-container">
-        <video id="background-video" src="trailer_lis.mp4" loop muted playsinline></video>
-    </div>
-
-    <!-- Контейнер для переключателя языка -->
-    <div class="language-switcher-container">
-        <div class="language-switcher">
-            <span>LAN</span>
-            <select id="language-selector">
-                <option value="eng">ENG</option>
-                <option value="rus">RUS</option>
-            </select>
+    <div class="scroll-container">
+        <!-- Заставка с изображением -->
+        <div class="splash">
+            <img src="lisfr_logo.png" alt="PNG изображение">
         </div>
-    </div>
 
-    <!-- Содержимое страницы -->
-    <div class="content">
-        <h2 data-translate="welcome">Remember all emotions that Life Is Strange ever bring to you..</h2>
-        <p data-translate="introduction">Magical, isn't it?</p>
+        <!-- Контейнер для меню -->
+        <div class="menu-container">
+            <!-- Меню -->
+            <ul class="menu">
+                <li><a href="#" data-translate="menu.home">Home</a></li>
+                <li><a href="#" data-translate="menu.donate">Donate</a></li>
+                <li><a href="#" data-translate="menu.history">History</a></li>
+                <li><a href="Contacts.html" data-translate="menu.contacts">Contacts</a></li>
+            </ul>
+        </div>
+
+        <!-- Контейнер для переключателя языка -->
+        <div class="language-switcher-container">
+            <div class="language-switcher">
+                <span>LAN</span>
+                <select id="language-selector">
+                    <option value="eng">ENG</option>
+                    <option value="rus">RUS</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Контейнер для видео -->
+        <div class="video-container">
+            <video id="background-video" src="trailer_lis.mp4" loop muted playsinline></video>
+        </div>
+
+        <!-- Содержимое страницы -->
+        <div class="content">
+            <div class="scroll-content">
+                <h2 data-translate="welcome">Remember all emotions that Life Is Strange ever bring to you..</h2>
+                <p data-translate="introduction">Magical, isn't it?</p>
+                <!-- Здесь может быть больше контента, который будет прокручиваться -->
+            </div>
+        </div>
     </div>
 
     <!-- Скрипт для анимации заставки и появления контента -->
