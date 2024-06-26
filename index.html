@@ -31,7 +31,7 @@
             justify-content: center;
             align-items: center;
             opacity: 0; /* Начальная прозрачность для анимации появления */
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 1s ease-in-out;
             z-index: 2;
         }
         .splash img {
@@ -193,14 +193,14 @@
 
         <!-- Контейнер для видео -->
         <div class="video-container">
-            <video id="background-video" src="trailer_lis.mp4" loop muted playsinline></video>
+            <video id="background-video" src="trailer_lis.mp4" loop muted playsinline preload="auto"></video>
         </div>
 
         <!-- Содержимое страницы -->
         <div class="content">
             <div class="scroll-content">
-                <h2 data-translate="welcome">Do you remember all the emotions that Life Is Strange ever brought you?</h2>
-                <p data-translate="introduction">Magical feelings, isn't it?</p>
+                <h2 data-translate="welcome">Remember all emotions that Life Is Strange ever bring to you..</h2>
+                <p data-translate="introduction">Magical, isn't it?</p>
                 <!-- Здесь может быть больше контента, который будет прокручиваться -->
             </div>
         </div>
@@ -220,22 +220,30 @@
                 splash.style.opacity = 1;
             }, 500); // Задержка перед началом появления заставки
 
-            // Показываем меню и содержимое страницы после исчезновения заставки
+            // Переход к изображению, показ изображения, затем снова к черному цвету
             setTimeout(() => {
                 splash.style.opacity = 0;
                 setTimeout(() => {
-                    menuContainer.classList.add('show'); // Показываем контейнер меню
-                    content.classList.add('show'); // Показываем содержимое
-                    video.style.opacity = 1; // Показываем видео
-                    video.play(); // Запускаем видео
-                    languageSwitcherContainer.classList.add('show'); // Показываем переключатель языка
-                }, 1000); // Задержка перед показом контейнера меню и содержимого
-            }, 3500); // Время исчезновения заставки (3 секунды + 1.5 секунды на появление)
+                    // Черный экран на 1 секунду
+                    document.body.style.backgroundColor = 'black';
+                    setTimeout(() => {
+                        menuContainer.classList.add('show'); // Показываем контейнер меню
+                        content.classList.add('show'); // Показываем содержимое
+                        video.style.opacity = 1; // Показываем видео
+                        languageSwitcherContainer.classList.add('show'); // Показываем переключатель языка
+                    }, 1000); // Задержка перед показом контейнера меню и содержимого
+                }, 1000); // Задержка перед черным экраном
+            }, 2500); // Время исчезновения заставки (1 секунда на появление, 1 секунда показ, 1 секунда на исчезновение)
 
             // Скрываем заставку окончательно
             setTimeout(() => {
                 splash.style.display = 'none';
-            }, 5000); // Время после которого скрываем заставку
+            }, 4500); // Время после которого скрываем заставку
+
+            // Обработка буферизации и воспроизведения видео
+            video.addEventListener('canplaythrough', function() {
+                video.play();
+            });
         }
 
         // Добавляем слушатель для взаимодействия с пользователем на мобильных устройствах
