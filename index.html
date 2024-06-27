@@ -228,9 +228,14 @@
                     document.body.style.backgroundColor = 'black';
                     setTimeout(() => {
                         menuContainer.classList.add('show'); // Показываем контейнер меню
-                        content.classList.add('show'); // Показываем содержимое
-                        video.style.opacity = 1; // Показываем видео
-                        languageSwitcherContainer.classList.add('show'); // Показываем переключатель языка
+
+                        // Слушаем окончание анимации появления контейнера меню
+                        menuContainer.addEventListener('transitionend', function() {
+                            content.classList.add('show'); // Показываем содержимое
+                            languageSwitcherContainer.classList.add('show'); // Показываем переключатель языка
+                            video.style.opacity = 1; // Показываем видео
+                            video.play(); // Начинаем воспроизведение видео
+                        }, { once: true }); // { once: true } гарантирует, что слушатель сработает только один раз
                     }, 1000); // Задержка перед показом контейнера меню и содержимого
                 }, 1000); // Задержка перед черным экраном
             }, 2500); // Время исчезновения заставки (1 секунда на появление, 1 секунда показ, 1 секунда на исчезновение)
@@ -239,11 +244,6 @@
             setTimeout(() => {
                 splash.style.display = 'none';
             }, 4500); // Время после которого скрываем заставку
-
-            // Обработка буферизации и воспроизведения видео
-            video.addEventListener('canplaythrough', function() {
-                video.play();
-            });
         }
 
         // Добавляем слушатель для взаимодействия с пользователем на мобильных устройствах
