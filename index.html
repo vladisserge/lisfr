@@ -52,14 +52,10 @@
         /* Стили для меню */
         .menu-container {
             position: fixed;
-            top: 0;
+            top: -100%; /* Начальное положение за пределами экрана */
             width: 100%;
             z-index: 1000;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .menu-container.show {
-            opacity: 1;
+            transition: top 0.5s ease-in-out; /* Анимация выезда сверху */
         }
         .menu {
             list-style-type: none;
@@ -70,6 +66,11 @@
             text-align: center;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            transform: translateY(-100%); /* Начально выезжаем за пределы экрана */
+            transition: transform 0.5s ease-in-out; /* Анимация выезда сверху */
+        }
+        .menu.show {
+            transform: translateY(0); /* Выезжаем сверху на видимую область экрана */
         }
         .menu li {
             display: inline;
@@ -199,8 +200,8 @@
         <!-- Содержимое страницы -->
         <div class="content">
             <div class="scroll-content">
-                <h2 data-translate="welcome">Remember all emotions that Life Is Strange ever bring to you..</h2>
-                <p data-translate="introduction">Magical, isn't it?</p>
+                <h2 data-translate="welcome">Do you remember all the emotions that Life Is Strange ever brought you?</h2>
+                <p data-translate="introduction">Magical feelings, isn't it?</p>
                 <!-- Здесь может быть больше контента, который будет прокручиваться -->
             </div>
         </div>
@@ -211,6 +212,7 @@
         window.onload = function() {
             const splash = document.querySelector('.splash');
             const menuContainer = document.querySelector('.menu-container');
+            const menu = document.querySelector('.menu');
             const content = document.querySelector('.content');
             const video = document.getElementById('background-video');
             const languageSwitcherContainer = document.querySelector('.language-switcher-container');
@@ -227,7 +229,7 @@
                     // Черный экран на 1 секунду
                     document.body.style.backgroundColor = 'black';
                     setTimeout(() => {
-                        menuContainer.classList.add('show'); // Показываем контейнер меню
+                        menuContainer.style.top = '0'; // Показываем контейнер меню выезжая сверху
 
                         // Слушаем окончание анимации появления контейнера меню
                         menuContainer.addEventListener('transitionend', function() {
@@ -235,6 +237,11 @@
                             languageSwitcherContainer.classList.add('show'); // Показываем переключатель языка
                             video.style.opacity = 1; // Показываем видео
                             video.play(); // Начинаем воспроизведение видео
+
+                            // Показываем меню с анимацией выезда сверху
+                            setTimeout(() => {
+                                menu.classList.add('show');
+                            }, 100); // Небольшая задержка для корректной анимации
                         }, { once: true }); // { once: true } гарантирует, что слушатель сработает только один раз
                     }, 1000); // Задержка перед показом контейнера меню и содержимого
                 }, 1000); // Задержка перед черным экраном
