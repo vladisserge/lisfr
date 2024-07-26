@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Life Is Strange Fan Reboot</title>
     <style>
+        /* Подключение шрифта Helvetica */
+        @font-face {
+            font-family: 'Helvetica';
+            src: url('Fonts/Helvetica.ttf') format('truetype');
+        }
+
         /* Общие стили для всей страницы */
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica', Arial, sans-serif;
             height: 100vh; /* Заполняем весь экран */
             display: flex;
             justify-content: center;
@@ -161,6 +167,37 @@
         .scroll-content {
             padding: 20px;
         }
+
+        /* Стили для кнопки */
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #444;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #666;
+        }
+
+        /* Стили для затемнения */
+        .fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 10000;
+            pointer-events: none; /* Отключаем взаимодействие с элементом */
+        }
     </style>
 </head>
 <body>
@@ -200,12 +237,19 @@
         <!-- Содержимое страницы -->
         <div class="content">
             <div class="scroll-content">
-                <h2 data-translate="welcome">Do you remember all the emotions that Life Is Strange ever brought you?</h2>
-                <p data-translate="introduction">Magical feelings, isn't it?</p>
+                <h2 data-translate="welcome">A game that takes the Life Is Strange to the next level.</h2>
+                <div class="button-container">
+                    <button class="button" onclick="showFadeOverlay()">
+                        See our work
+                    </button>
+                </div>
                 <!-- Здесь может быть больше контента, который будет прокручиваться -->
             </div>
         </div>
     </div>
+
+    <!-- Затемняющий слой -->
+    <div class="fade-overlay" id="fade-overlay"></div>
 
     <!-- Скрипт для анимации заставки и появления контента -->
     <script>
@@ -251,6 +295,17 @@
             setTimeout(() => {
                 splash.style.display = 'none';
             }, 4500); // Время после которого скрываем заставку
+        }
+
+        // Функция для плавного затемнения
+        function showFadeOverlay() {
+            const fadeOverlay = document.getElementById('fade-overlay');
+            fadeOverlay.style.opacity = 1;
+
+            // Перейти на другую страницу через секунду
+            setTimeout(() => {
+                window.location.href = 'Work.html';
+            }, 1000);
         }
 
         // Добавляем слушатель для взаимодействия с пользователем на мобильных устройствах
